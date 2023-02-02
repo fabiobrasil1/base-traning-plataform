@@ -8,11 +8,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { StudentEntity } from './entities/students.entity';
 import { CreateStudentUseCase } from './usecases/create-student.usecase';
 import { StudetsController } from './controllers/studets.controller';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([StudentEntity])],
+  imports: [TypeOrmModule.forFeature([StudentEntity]), ConfigModule],
   controllers: [StudetsController],
-  providers: [CreateStudentUseCase, FindStudentByIdUseCase],
-  exports: [CreateStudentUseCase],
+  providers: [ConfigService, CreateStudentUseCase, FindStudentByIdUseCase],
+  exports: [CreateStudentUseCase, FindStudentByIdUseCase],
 })
-export class StudentsModule {}
+export class StudentsModule { }

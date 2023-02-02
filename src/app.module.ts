@@ -4,13 +4,11 @@ import { GymModule } from './modules/gym/gym.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import entities from './infra/database/db.config';
+import entities, { StudentEntity } from './infra/database/db.config';
 import { GymController } from './modules/gym/controllers/gym.controller';
 import { CreateStudentUseCase } from './modules/students/usecases/create-student.usecase';
 @Module({
   imports: [
-    StudentsModule,
-    GymModule,
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -26,8 +24,10 @@ import { CreateStudentUseCase } from './modules/students/usecases/create-student
       }),
       inject: [ConfigService],
     }),
+    StudentsModule,
+    GymModule,
   ],
   controllers: [StudetsController, GymController],
-  providers: [CreateStudentUseCase],
+  providers: [],
 })
 export class AppModule { }
