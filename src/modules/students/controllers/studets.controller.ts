@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateStudentDto } from '../dtos/create-student.dto';
 import { CreateStudentUseCase } from '../usecases/create-student.usecase';
 import { FindStudentByIdUseCase } from '../usecases/find-student-by-id.usecase';
-
+@ApiTags('student')
 @Controller('student')
 export class StudetsController {
   constructor(
@@ -18,6 +28,6 @@ export class StudetsController {
 
   @Get('id/:id')
   findGymBiId(@Param('id', ParseIntPipe) id: number) {
-    return this.findStudentBiIdUseCase.execute(id)
+    return this.findStudentBiIdUseCase.execute(id);
   }
 }

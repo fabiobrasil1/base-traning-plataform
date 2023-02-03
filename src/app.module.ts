@@ -1,15 +1,22 @@
+import { WorkoutModule } from './modules/workout/workout.module';
 import { StudetsController } from './modules/students/controllers/studets.controller';
 import { StudentsModule } from './modules/students/students.module';
 import { GymModule } from './modules/gym/gym.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import entities, { StudentEntity } from './infra/database/db.config';
+import entities from './infra/database/db.config';
 import { GymController } from './modules/gym/controllers/gym.controller';
-import { CreateStudentUseCase } from './modules/students/usecases/create-student.usecase';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './auth/jwt.strategy';
+import { AuthService } from './auth/auth.service';
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -24,10 +31,13 @@ import { CreateStudentUseCase } from './modules/students/usecases/create-student
       }),
       inject: [ConfigService],
     }),
+    JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '1h' } }),
     StudentsModule,
     GymModule,
+    AuthModule,
+    WorkoutModule,
   ],
   controllers: [StudetsController, GymController],
-  providers: [],
+  providers: [AuthService, JwtStrategy],
 })
-export class AppModule { }
+export class AppModule {}

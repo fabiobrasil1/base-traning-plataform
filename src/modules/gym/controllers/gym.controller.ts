@@ -11,7 +11,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FindGymByIdUseCase } from '../usecases/find-gym-by-id.usecase';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('gym')
 @Controller('gym')
 export class GymController {
   constructor(
