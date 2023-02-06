@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthenticateDto } from './dtos/authenticate.dto';
 import { JwtAuthGuard } from './jwt.guard';
+import { Roles } from './roles.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -20,9 +21,10 @@ export class AuthController {
     }
   }
 
+  @Roles('admin')
   @UseGuards(JwtAuthGuard)
   @Get()
   profile(@Req() req, @Res() res) {
-    return res.status(HttpStatus.OK).json(req.user)
+    return res.status(HttpStatus.OK).json(req.user);
   }
 }
