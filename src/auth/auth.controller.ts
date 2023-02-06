@@ -1,8 +1,8 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthenticateDto } from './dtos/authenticate.dto';
-import { IAuthenticate } from './interface/user.interface';
+import { JwtAuthGuard } from './jwt.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -18,5 +18,11 @@ export class AuthController {
     } catch (error) {
       return error;
     }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  profile(@Req() req, @Res() res) {
+    return res.status(HttpStatus.OK).json(req.user)
   }
 }

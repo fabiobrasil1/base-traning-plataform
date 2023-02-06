@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { AuthService } from './auth/auth.service';
+import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -36,6 +37,7 @@ import { AuthService } from './auth/auth.service';
     GymModule,
     AuthModule,
     WorkoutModule,
+    PassportModule,
   ],
   controllers: [StudetsController, GymController],
   providers: [AuthService, JwtStrategy],
