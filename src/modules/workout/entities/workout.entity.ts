@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class WorkoutEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
-  
+
   @Column({
     nullable: false,
     default: '',

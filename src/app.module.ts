@@ -1,3 +1,8 @@
+import { User_systemModule } from './modules/user_system/user_system.module';
+import { UserModule } from './modules/user/user.module';
+import { TrainerModule } from './modules/trainer/trainer.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { ClassesModule } from './modules/classes /classes.module';
 import { WorkoutModule } from './modules/workout/workout.module';
 import { StudetsController } from './modules/students/controllers/studets.controller';
 import { StudentsModule } from './modules/students/students.module';
@@ -12,6 +17,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { AuthService } from './auth/auth.service';
 import { PassportModule } from '@nestjs/passport';
+
+const modules = [
+  User_systemModule,
+  UserModule,
+  TrainerModule,
+  RolesModule,
+  ClassesModule,
+  StudentsModule,
+  GymModule,
+  AuthModule,
+  WorkoutModule,
+  PassportModule,
+];
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -33,11 +51,7 @@ import { PassportModule } from '@nestjs/passport';
       inject: [ConfigService],
     }),
     JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '1h' } }),
-    StudentsModule,
-    GymModule,
-    AuthModule,
-    WorkoutModule,
-    PassportModule,
+    ...modules,
   ],
   controllers: [StudetsController, GymController],
   providers: [AuthService, JwtStrategy],
