@@ -1,12 +1,12 @@
-/*
-https://docs.nestjs.com/modules
-*/
+import { EnrolledController } from './controllers/enrolled.controller';
+
 
 import { Module } from '@nestjs/common';
 
 @Module({
     imports: [],
-    controllers: [],
+    controllers: [
+        EnrolledController,],
     providers: [],
 })
-export class EnrolledModule {}
+export class EnrolledModule { }

@@ -1,3 +1,4 @@
+import { RoleController } from './modules/roles/controllers/role.controller';
 import { User_systemModule } from './modules/user_system/user_system.module';
 import { UserModule } from './modules/user/user.module';
 import { TrainerModule } from './modules/trainer/trainer.module';
@@ -53,7 +54,8 @@ const modules = [
     JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '1h' } }),
     ...modules,
   ],
-  controllers: [StudetsController, GymController],
+  controllers: [
+    RoleController, StudetsController, GymController],
   providers: [AuthService, JwtStrategy],
 })
-export class AppModule {}
+export class AppModule { }
